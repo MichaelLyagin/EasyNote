@@ -75,7 +75,7 @@ const AuthForm = () => {
   return (
     <div className='loginform'>
       {isRegistered ? ( //Зарегистрирован ли?
-        //Форма логина
+        //Форма для логина
         <div>
           <InputForm
             type='text'
