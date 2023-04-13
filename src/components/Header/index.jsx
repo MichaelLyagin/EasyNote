@@ -1,5 +1,5 @@
 import Button from '../Button'
-import { signOut, onAuthStateChanged } from 'firebase/auth'
+import { signOut } from 'firebase/auth'
 import { auth } from '../../firebase.jsx'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'

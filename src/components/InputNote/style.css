@@ -1,0 +1,14 @@
+.input-note {
+  width: 100%;
+}
+
+.input-note__input-text {
+  width: 100%;
+  margin-bottom: 17px;
+}
+
+.input-note__date-and-button {
+  display: flex;
+
+  justify-content: space-between;
+}

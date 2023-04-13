@@ -1,4 +1,5 @@
 import AuthForm from '../../components/AuthForm'
+
 import './style.css'
 
 const AuthPage = () => {
