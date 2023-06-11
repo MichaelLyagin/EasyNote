@@ -10,13 +10,19 @@ import { useNavigate } from 'react-router-dom'
 
 import './style.css'
 
-const AuthForm = () => {
+const promise1 = Promise.resolve('dfr')
+const register = Promise.resolve(false)
+
+const AuthForm = (invalidLog) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
   const [isRegistered, setIsRegistered] = useState(true)
   const [confirmPassword, setConfirmPassword] = useState('')
   const [invalidLogin, setInvalidLogin] = useState(false)
+  const [warning, setWarning] = useState('')
+  const [pas, setPas] = useState()
+  const [reg, setReg] = useState()
 
   //Если пользователь уже вошел, происходит перенаправление на домашнюю страницу
   useEffect(() => {
@@ -24,6 +30,19 @@ const AuthForm = () => {
       if (user) navigate('/home')
     })
   })
+
+  /*useEffect(() => {
+    const minLength = async () => {
+      const pas = await promise1
+      setPas(pas)
+      if (pas.length < 4 && pas !== '') {
+        setWarning('Пароль слишком короткий')
+      } else {
+        setWarning(null)
+      }
+    }
+    minLength()
+  })*/
 
   //Изменение состояния email
   const handleEmailChange = (e) => {
@@ -51,9 +70,10 @@ const AuthForm = () => {
 
   //Изменение состояния неправильно введенных данных при логине
   const handleInvalidLogin = () => {
-    console.log('handle применен')
     setInvalidLogin((invalidLogin) => !invalidLogin)
   }
+
+  //Проверка длины пароля
 
   //Изменение состояния зарегистрирован или нет + обнуление состоянийы
   const handleIsRegistered = () => {
@@ -63,6 +83,21 @@ const AuthForm = () => {
     setConfirmPassword((confirmPassword) => '')
     setInvalidLogin((invalidLogin) => false)
   }
+  //Функция для теста
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+    const regtr = async () => {
+      if (count <= 0) {
+        const reg = await register
+        setReg((reg) => !reg)
+
+        setEmail((email) => '')
+        setPassword((password) => '')
+        setCount((count) => count + 1)
+      }
+    }
+    regtr()
+  })
 
   //Регистрация пользователя и перенаправление на домашнюю страницу
   const handleRegister = () => {
@@ -72,6 +107,7 @@ const AuthForm = () => {
       })
       .catch(handleInvalidLogin)
   }
+
   return (
     <div className='loginform'>
       {isRegistered ? ( //Зарегистрирован ли?
@@ -89,7 +125,10 @@ const AuthForm = () => {
             onChange={handlePasswordChange}
             value={password}
           />
-          {invalidLogin ? <div>Невернно введена почта или пароль</div> : null}
+          <div>{warning}</div>
+          {invalidLogin ? (
+            <div className='warning'>Неверно введена почта или пароль</div>
+          ) : null}
           <Button onClick={handleSignIn}>Войти</Button>
           <div onClick={handleIsRegistered}>Зарегистрироваться</div>
         </div>
@@ -108,13 +147,14 @@ const AuthForm = () => {
             onChange={handlePasswordChange}
             value={password}
           />
+          {warning}
           <InputForm
             type='password'
             placeholder='Повторите пароль'
             onChange={handleConfirmPasswordChange}
             value={confirmPassword}
           />
-          {invalidLogin ? <div>Невернно введена почта или пароль</div> : null}
+          {warning}
           {password === confirmPassword || confirmPassword === '' ? ( //Проверка на совпадение паролей
             <Button onClick={handleRegister}>Зарегистрироваться</Button>
           ) : (

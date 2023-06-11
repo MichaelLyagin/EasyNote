@@ -7,6 +7,42 @@ import { auth, db } from '../../firebase.jsx'
 
 import './style.css'
 
+/*ЛБ 10 Медиатор
+class NoteLab {
+  constructor(noteID, text, dateComplete, fromMediator) {
+    this.noteID = noteID
+    this.text = text
+    this.dateComplete = dateComplete
+    this.createDate = new Date()
+    this.formMediator = this.formMediator
+  }
+
+  newNote() {
+    this.formMediator.makeNote(this)
+  }
+}
+
+class InputMediator {
+  constructor() {
+    this.notes = []
+  }
+
+  addNoteToList(note) {
+    this.notes.push(note)
+  }
+
+  makeNote(note) {
+    this.addNoteToList(note)
+    console.log(
+      `\nДобавлена новая заметка!\nID:${note.ID}\nТекст:${note.text}\nДата завершения:${note.dateComplete}\nДата создания:${note.createDate}`
+    )
+  }
+
+  getNotesList() {
+    return this.notes
+  }
+} */
+
 const InputNote = () => {
   const [date, setDate] = useState('') //состояние Даты выполнения заметки
   const [text, setText] = useState('') //состояние Текста заметки

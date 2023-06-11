@@ -1,8 +1,16 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+//8 лаба
+import { render, screen } from '@testing-library/react'
+import React from 'react'
+import '@testing-library/jest-dom'
+import AuthPage from './pages/AuthPage/index.jsx'
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+const mockedUsedNavigate = jest.fn()
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockedUsedNavigate,
+}))
+
+test('full app rendering/navigating', () => {
+  render(<AuthPage />)
+  expect(screen.getByText(/Зарегистрироваться/i)).toBeInTheDocument()
+})
